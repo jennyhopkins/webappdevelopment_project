@@ -17,6 +17,7 @@ body {
 @media (min-width: 501px) {
     #logo {
         width: 10%
+        max-height: 10%
     }
 }
 
@@ -59,3 +60,6 @@ header, .container { /*we have our divs inside the section container, so they ar
     padding: 5px;
 }
 
+::selection {
+    background-color: yellow;
+}

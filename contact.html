@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
+      <link rel="stylesheet" type="text/css" href="/css/contact.css"
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
@@ -22,23 +23,69 @@
             <a class="active" href="contact.html">Contact Me</a>
           </div>
           <section class="container">
-               <form>
-                   Name: 
-                   <input type="text" id="name" size="100" name="name">
+               <form id="contact">
+                   <div class="row">
+                       <div class="col-25">
+                           <label for="name">Name</label>
+                       </div>
+                       <div class="col-75">
+                           <input type="text" id="name" name="name" placeholder="Your full name" required>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-25">
+                           <label for="email">Email</label>
+                       </div>
+                       <div class="col-75">
+                           <input type="text" id="email" name="email" placeholder="Your email address" required>
+                       </div>
+                   </div>
+                   <div class="row">
+                       <div class="col-25">
+                           <label for="subject1">Subject</label>
+                       </div>
+                       <div class="col-75">
+                           <input type="text" id="subject1" name="subject" placeholder="Subject of your message" required>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="col-25">
+                           <label for="message">Message</label>
+                       </div>
+                       <div class="col-75">
+                           <textarea type="text" id="message" name="message" placeholder="Your message" style="height:200px" required></textarea>
+                       </div>
+                   </div>
+
+                   <div class="row">
+                       <div class="col-25"
+                            <label for="fileUpload">Upload a file (optional)</label>
+                       </div>
+                        <div class="col-75">
+                            <input type="file" id="fileUpload" optional>
+                        </div>
+                   </div>
                    <br>
-                   Email: 
-                   <input type="text" id="email" size="100" name="email">
-                   <br>
-                   Subject:
-                   <input type="text" id="subject" size="100" name="subject">
-                   <br>
-                   Message:
-                   <input type="text" id="message" size="1000" name="message">
-                   <br>
-                   <input type="button" id="submit" onclick="saveForm()" value="Submit">
+
+                   <div class="row">
+                       <input type="submit" value="Submit" onclick="submitForm()">
+                   </div>
                </form>
-          </section>  
-        
+
+          </section>
+          <script>
+              function submitForm() {
+                  document.getElementById("contact").submit();
+                  console.log("code reached here - form submitted");
+                  /* let form = document.getElementById("contact");
+                  form.style.display = "none";
+                  var processing = document.createElement("span");
+                  processing.appendChild(document.createTextNode("Thanks for your submission!"));
+                  form.parentNode.insertBefore(processing, form); */
+              }
+          </script>
+
       </main>
       <footer id="footer">
         Copyright Jenny Hopkins 2021, CS 601 Web App Development
