@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Contact</title>
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
+  </head>
+  <body>
+      <main>
+          <header>
+              <img id="logo" src="content/resources/J_logo.png" alt="Jenny's logo"/>
+              <h1>&nbsp; &nbsp; &nbsp; Jenny Hopkins</h1>
+          </header>
+          <div class="topnav">
+            <a href="home_page.html">Home</a>
+            <a href="photos_page.html">Photos</a>
+            <a href="projects.html">Projects</a>
+            <a class="active" href="contact.html">Contact Me</a>
+          </div>
+          <section class="container">
+               <form>
+                   Name: 
+                   <input type="text" id="name" size="100" name="name">
+                   <br>
+                   Email: 
+                   <input type="text" id="email" size="100" name="email">
+                   <br>
+                   Subject:
+                   <input type="text" id="subject" size="100" name="subject">
+                   <br>
+                   Message:
+                   <input type="text" id="message" size="1000" name="message">
+                   <br>
+                   <input type="button" id="submit" onclick="saveForm()" value="Submit">
+               </form>
+          </section>  
+        
+      </main>
+      <footer id="footer">
+        Copyright Jenny Hopkins 2021, CS 601 Web App Development
+    </footer>
+  </body>
+</html>

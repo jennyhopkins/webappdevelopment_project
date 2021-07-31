@@ -1,0 +1,61 @@
+body {
+    margin: 10px;
+    font-size: 18px;
+    font-family: 'Crimson Text', serif;
+    height: 100%;
+}
+
+@media (max-width: 500px) {
+    .container img {
+        visibility: hidden;
+    }
+    #logo {
+        width: 20%;
+    }
+}
+
+@media (min-width: 501px) {
+    #logo {
+        width: 10%
+    }
+}
+
+#jenny_pic {
+    border: 2px solid black;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: black;
+}
+
+.topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 17px;
+}
+
+.topnav a:hover {
+    background-color: grey;
+    color: white;
+}
+
+.topnav a.active {
+    background-color: blue;
+    color: white;
+}
+
+header, .container { /*we have our divs inside the section container, so they are children - will have the same properties as container */
+    display: flex;
+    flex-direction: row;
+}
+
+#footer {
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+    padding: 5px;
+}
+
