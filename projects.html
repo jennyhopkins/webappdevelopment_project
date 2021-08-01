@@ -43,8 +43,21 @@
         <h3 id="temp_min"><br></h3>
         <h3 id="temp_max"><br></h3>
     </section>
-    <section id="">
+    <section id="dailyWeatherAPI">
+        <section class="container">
+            <p> Daily weather: </p>
+            <section id="dailyWeather" class="container">
+                <form class=center>
+                    Search for daily weather by lat and long:
+                    <input type="text" id="lat" size="50" name="lat">
+                    <input type="text" id="long" size="50" name="long">
+                    <input type="button" id=button2 onclick="searchDailyWeather()" value="Search"><br>
+                </form>
+            </section>
+        </section>
+            <h3 id="hourly_temp"><br></h3>
 
+</section>
 
 </main>
 <footer id="footer">
@@ -72,7 +85,7 @@
             redirect: 'follow',
             referrerPolicy: 'no-referrer',
         };
-        
+
         //securely read API key
         let url = "http://localhost:8010/proxy/data/2.5/weather?q=" + city + ",us&appid=" + config.apiKey;
 
@@ -102,6 +115,49 @@
             document.getElementById("temp_min").innerHTML = "Min Temperature: " + temp_min;
             let temp_max = Math.round(convertKelvinToFahrenheit(output.main.temp_max));
             document.getElementById("temp_max").innerHTML = "Max Temperature: " + temp_max;
+        }
+    }
+
+    function searchDailyWeather() {
+        var lat = document.getElementById("lat").value;
+        var long = document.getElementById("long").value;
+
+
+        var myHeaders = new Headers();
+        myHeaders.append('Access-Control-Allow-Origin', '');
+        myHeaders.append("Accept", "/");
+
+        var requestOptions = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        };
+
+       // let url = "http://localhost:8010/proxy/data/2.5/onecall?" + city + ",us&appid="+config.apiKey;
+        let url = "http://localhost:8010/proxy/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,current&appid=" + config.apiKey;
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => parseDailyWeatherOutput(result))
+            .catch(error => console.log('error', error));
+
+        function parseDailyWeatherOutput(input) {
+            const output = JSON.parse(input);
+            console.log(output);
+            let hourly_temp = output.hourly[0].temp;
+            document.getElementById("hourly_temp").innerHTML = "Hourly Temp: " + hourly_temp;
+            console.log("hourly temp: " + hourly_temp);
+            /* let temp = Math.round(convertKelvinToFahrenheit(output.main.temp));
+            document.getElementById("temp").innerHTML = "Temperature: " + temp;
+            let feels_like = Math.round(convertKelvinToFahrenheit(output.main.feels_like));
+            document.getElementById("feels_like").innerHTML = "Feels like: " + feels_like;
+            console.log("feels_like: " + feels_like);
+            let temp_min = Math.round(convertKelvinToFahrenheit(output.main.temp_min));
+            document.getElementById("temp_min").innerHTML = "Min Temperature: " + temp_min;
+            let temp_max = Math.round(convertKelvinToFahrenheit(output.main.temp_max));
+            document.getElementById("temp_max").innerHTML = "Max Temperature: " + temp_max; */
         }
     }
 
