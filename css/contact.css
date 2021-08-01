@@ -19,7 +19,7 @@ label {
     display: inline-block;
 }
 
-input[type=submit] {
+input[type=button] {
     background-color: lightblue;
     color: white;
     padding: 12px 20px;
@@ -29,11 +29,11 @@ input[type=submit] {
     float: right;
 }
 
-input[type=submit]:hover {
+input[type=button]:hover {
     background-color: #00ce3e;
 }
 
-input[type=submit]:active {
+input[type=button]:active {
     transition: 1s;
     background-color: #81ece1;
 }

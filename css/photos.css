@@ -5,6 +5,11 @@
     background-color: palevioletred;
 }
 
+.placesnav a.active {
+    background-color: blue;
+    color: white;
+}
+
 .placesnav a{
     float: left;
     color: white;
@@ -71,6 +76,9 @@ div.desc {
 @media only screen and (max-width: 500px) {
     .responsive {
         width: 100%;
+    }
+    #slideshowInstructions, .container {
+        display: none;
     }
 }
 

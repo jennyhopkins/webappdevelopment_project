@@ -13,63 +13,130 @@
 </head>
 
 <body>
-    <nav>
-        <header>
-            <img id="logo" src="content/resources/J_logo.png" alt="Jenny's logo" />
-            <h1>&nbsp; &nbsp; &nbsp; Jenny Hopkins</h1>
-        </header>
-        <div class="topnav">
-            <a href="home_page.html">Home</a>
-            <a class="active" href="photos_page.html">Photos</a>
-            <a href="projects.html">Projects</a>
-            <a href="contact.html">Contact Me</a>
-        </div>
-        <div class="placesnav">
-            <a class="active" href="photos_page.html">China</a>
-            <a href="france.html">France</a>
-            <a href="martinique.html">Martinique</a>
-        </div>
-    </nav>
-
-    <div class="responsive">
-        <div class="gallery">
-                <img id="china1 "src="content/resources/china1.JPG" alt="Giant Wild Goose Pagoda in Xi'An, built in 648 AD (Tang Dynasty)" width="600" height="400">
-            <div class="desc">Giant Wild Goose Pagoda in Xi'An, built in 648 AD (Tang Dynasty)</div>
-        </div>
+<nav>
+    <header>
+        <img id="logo" src="content/resources/J_logo.png" alt="Jenny's logo"/>
+        <h1>&nbsp; &nbsp; &nbsp; Jenny Hopkins</h1>
+    </header>
+    <div class="topnav">
+        <a href="home_page.html">Home</a>
+        <a class="active" href="photos_page.html">Photos</a>
+        <a href="projects.html">Projects</a>
+        <a href="contact.html">Contact Me</a>
     </div>
-
-
-    <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="content/resources/china2.JPG">
-                <img src="content/resources/china2.JPG" alt="Tree with paper lanterns" width="600" height="400">
-            </a>
-            <div class="desc">Tree with paper lanterns</div>
-        </div>
+    <div class="placesnav">
+        <a class="active" href="photos_page.html">China</a>
+        <a href="france.html">France</a>
+        <a href="martinique.html">Martinique</a>
     </div>
+</nav>
 
-    <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="content/resources/china3.JPG">
-                <img src="content/resources/china3.JPG" alt="An ornate roof" width="600" height="400">
-            </a>
-            <div class="desc">An ornate building</div>
-        </div>
+<div class="responsive">
+    <div class="gallery">
+        <img id="china1" src="content/resources/china1.JPG"
+             alt="Giant Wild Goose Pagoda in Xi'An, built in 648 AD (Tang Dynasty)" width="600" height="400">
+        <div class="desc">Giant Wild Goose Pagoda in Xi'An, built in 648 AD (Tang Dynasty)</div>
     </div>
+</div>
 
-    <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="content/resources/china6.JPG">
-                <img src="content/resources/china6.JPG" alt="Huaqing Pool" width="600" height="400">
-            </a>
-            <div class="desc">Huaqing Pool</div>
-        </div>
+
+<div class="responsive">
+    <div class="gallery">
+        <a target="_blank" href="content/resources/china2.JPG">
+            <img id="china2" src="content/resources/china2.JPG" alt="Tree with paper lanterns" width="600" height="400">
+        </a>
+        <div class="desc">Tree with paper lanterns</div>
     </div>
+</div>
 
-    <div class="clearfix"></div>
+<div class="responsive">
+    <div class="gallery">
+        <a target="_blank" href="content/resources/china3.JPG">
+            <img src="content/resources/china3.JPG" alt="An ornate roof" width="600" height="400">
+        </a>
+        <div class="desc">An ornate building</div>
+    </div>
+</div>
 
-    <footer id="footer">
-        Copyright Jenny Hopkins 2021, CS 601 Web App Development
-    </footer>
+<div class="responsive">
+    <div class="gallery">
+        <a target="_blank" href="content/resources/china6.JPG">
+            <img src="content/resources/china6.JPG" alt="Huaqing Pool" width="600" height="400">
+        </a>
+        <div class="desc">Huaqing Pool</div>
+    </div>
+</div>
+
+<div class="clearfix"></div>
+
+<p id="slideshowInstructions">Use left and right arrow keys to see a slideshow of the images below: </p>
+<div class="container">
+    <div id="slideshow1">
+        <img alt="slideshow" src="/content/resources/china1.JPG" id="slideshowImage" width="400" height="350"/>
+    </div>
+</div>
+
+<footer id="footer">
+    Copyright Jenny Hopkins 2021, CS 601 Web App Development
+</footer>
+<script>
+
+    function changeImages(e) {
+        // obviously use your own images here:
+        var imageArray = ['china1.JPG', 'china2.JPG', 'china3.JPG','china6.JPG'],
+            // reference to the img element:
+            slideshowImage = document.getElementById('slideshowImage'),
+            // finding the string of the src after the last '/' character:
+            curImg = slideshowImage.src.split('/').pop(),
+            // finding that string from the array of images:
+            curIndex = imageArray.indexOf(curImg),
+            // initialising the nextIndex variable:
+            nextIndex;
+        console.log("Curr img name:", curImg);
+        console.log("curIndex: ", curIndex);
+
+
+        // if we have a keyCode (therefore we have a keydown or keyup event:
+        if (e.key) {
+            console.log("here");
+            // we do different things based on which key was pressed:
+            switch (e.key) {
+                // keyCode 37 is the left arrow key:
+                case "ArrowLeft":
+
+                    console.log("here arrow left");
+                    // if the current index is 0 (the first element in the array)
+                    // we next show the last image in the array, at position 'imgs.length - 1'
+                    // otherwise we show the image at the previous index:
+                    nextIndex = curIndex === 0 ? (imageArray.length - 1) : curIndex - 1;
+
+                    console.log("nextIndex",nextIndex);
+                    break;
+                // keyCode 39 is the right arrow key:
+                case "ArrowRight":
+                    console.log("here arrow right");
+                    // if curIndex + 1 is equal to the length of the images array,
+                    // we show the first element from the array, otherwise we use the next:
+                    nextIndex = curIndex + 1 === imageArray.length ? 0 : curIndex + 1;
+
+                    console.log("nextIndex",nextIndex);
+                    break;
+            }
+            // if we don't have a keyCode, we check if the event-type (in lowercase)
+            // is a mousedown:
+        }
+        // setting the src of the image to the relevant URL + the string from the array
+        // at the 'nextIndex':
+        console.log('full path /content/resources/' + imageArray[nextIndex]);
+        slideshowImage.src = '/content/resources/' + imageArray[nextIndex];
+    }
+
+    // binding a mousedown event-handler to the 'img' element:
+    //document.getElementById('imgClickAndChange').addEventListener('mousedown', changeImages);
+    // binding the keydown event-handler to the 'body' element:
+    document.body.addEventListener('keydown', changeImages);
+
+
+</script>
 </body>
 </html>
