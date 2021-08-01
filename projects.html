@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Projects</title>
@@ -8,28 +8,105 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/css/main.css">
-  </head>
-  <body>
-      <main>
-          <header>
-              <img id="logo" src="content/resources/J_logo.png" alt="Jenny's logo"/>
-              <h1>&nbsp; &nbsp; &nbsp; Jenny Hopkins</h1>
-          </header>
-          <div class="topnav">
-            <a href="home_page.html">Home</a>
-            <a href="photos_page.html">Photos</a> 
-            <a class="active" href="projects.html">Projects</a>
-            <a href="contact.html">Contact Me</a>
-          </div>
-          <section class="container">
-                <p>Here is a project which uses Ajax to pull weather data using an OpenWeather API key. Feel free to search for the weather
-                    in your city: <br>
-                </p>
-          </section>  
+    <link rel="stylesheet" type="text/css" href="/css/projects.css">
+    <script src="script/config.js"></script>
+</head>
+<body>
+<main>
+    <header>
+        <img id="logo" src="content/resources/J_logo.png" alt="Jenny's logo"/>
+        <h1>&nbsp; &nbsp; &nbsp; Jenny Hopkins</h1>
+    </header>
+    <div class="topnav">
+        <a href="home_page.html">Home</a>
+        <a href="photos_page.html">Photos</a>
+        <a class="active" href="projects.html">Projects</a>
+        <a href="contact.html">Contact Me</a>
+    </div>
+    <section id="currentWeatherAPI">
+        <section class="container">
+            <p>Here is a project which pulls weather data using OpenWeather API keys. Feel free to search for the
+                weather
+                in your city: <br>
+            </p>
+        </section>
+        <section id="currentWeather" class="container">
+            <form class=center>
+                Search for the current weather in any US city by "city" or "city, state" e.g. "Houston" or "Boston, MA":
+                <input type="text" id="city1" size="50" name="city">
+                <input type="button" id=button1 onclick="searchCurrentWeather()" value="Search"><br>
+            </form>
+        </section>
+        <h3 id="desc"><br></h3>
+        <h3 id="temp"><br></h3>
+        <h3 id="feels_like"><br></h3>
+        <h3 id="temp_min"><br></h3>
+        <h3 id="temp_max"><br></h3>
+    </section>
+    <section id="">
+
+
+</main>
+<footer id="footer">
+    Copyright Jenny Hopkins 2021, CS 601 Web App Development
+</footer>
+<script>
+    //CAN PUT COMMONLY USED FUNCTIONS INTO ES6 MODULE
+    function convertKelvinToFahrenheit(Kelvin) {
+        let Fahrenheit = ((Kelvin - 273.15) * 9 / 5) + 32;
+        return Fahrenheit;
+    }
+
+    function searchCurrentWeather() {
+        var city = document.getElementById("city1").value;
+        console.log("city entered: ", city);
+
+        var myHeaders = new Headers();
+        myHeaders.append('Access-Control-Allow-Origin', '');
+        myHeaders.append("Accept", "/");
+
+        var requestOptions = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        };
         
-      </main>
-      <footer id="footer">
-        Copyright Jenny Hopkins 2021, CS 601 Web App Development
-    </footer>
-  </body>
+        //securely read API key
+        let url = "http://localhost:8010/proxy/data/2.5/weather?q=" + city + ",us&appid=" + config.apiKey;
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => parseCurrentWeatherOutput(result))
+            .catch(error => console.log('error', error));
+
+        function parseCurrentWeatherOutput(input) {
+            const output = JSON.parse(input);
+            console.log(output);
+            /* let stringOutput = "";
+            for(index in output) {
+                stringOutput += JSON.stringify(output[index]);
+            }
+            console.log(stringOutput); */
+            let desc = output.weather[0].description; //weather info is in array
+            console.log("weather" + desc);
+            document.getElementById("desc").innerHTML = "Description: " + desc;
+            console.log("desc" + desc);
+            let temp = Math.round(convertKelvinToFahrenheit(output.main.temp));
+            document.getElementById("temp").innerHTML = "Temperature: " + temp;
+            let feels_like = Math.round(convertKelvinToFahrenheit(output.main.feels_like));
+            document.getElementById("feels_like").innerHTML = "Feels like: " + feels_like;
+            console.log("feels_like: " + feels_like);
+            let temp_min = Math.round(convertKelvinToFahrenheit(output.main.temp_min));
+            document.getElementById("temp_min").innerHTML = "Min Temperature: " + temp_min;
+            let temp_max = Math.round(convertKelvinToFahrenheit(output.main.temp_max));
+            document.getElementById("temp_max").innerHTML = "Max Temperature: " + temp_max;
+        }
+    }
+
+
+
+</script>
+</body>
 </html>
