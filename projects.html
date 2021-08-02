@@ -24,41 +24,87 @@
         <a href="contact.html">Contact Me</a>
     </div>
     <section id="currentWeatherAPI">
-        <section class="container">
-            <p>Here is a project which pulls weather data using OpenWeather API keys. Feel free to search for the
-                weather
-                in your city: <br>
-            </p>
-        </section>
-        <section id="currentWeather" class="container">
-            <form class=center>
-                Search for the current weather in any US city by "city" or "city, state" e.g. "Houston" or "Boston, MA":
+        <p>Here is a project which pulls weather and weather-related data using OpenWeather API keys. Feel free to use
+            the searches below. <br>
+        </p>
+        <section id="currentWeather" >
+            <form class="center">
+                <p>Search for the current weather in any US city by "city" or "city, state" e.g. "Houston" or "Boston,
+                    MA":</p>
                 <input type="text" id="city1" size="50" name="city">
                 <input type="button" id=button1 onclick="searchCurrentWeather()" value="Search"><br>
             </form>
         </section>
-        <h3 id="desc"><br></h3>
-        <h3 id="temp"><br></h3>
-        <h3 id="feels_like"><br></h3>
-        <h3 id="temp_min"><br></h3>
-        <h3 id="temp_max"><br></h3>
+        <div style="text-align: center">
+            <h3 id="desc"></h3>
+            <h3 id="temp"></h3>
+            <h3 id="feels_like"></h3>
+            <h3 id="temp_min"></h3>
+            <h3 id="temp_max"></h3>
+        </div>
     </section>
+    <hr class="vertical-line"></hr>
     <section id="dailyWeatherAPI">
-        <section class="container">
-            <p> Daily weather: </p>
-            <section id="dailyWeather" class="container">
-                <form class=center>
-                    Search for daily weather by lat and long:
-                    <input type="text" id="lat" size="50" name="lat">
-                    <input type="text" id="long" size="50" name="long">
+        <section>
+            <section id="dailyWeather">
+                <form class="center">
+                    <p>Search for daily weather by latitude and longitude: </p>
+                    <p>Latitude: <input type="text" id="lat1" size="25" name="lat"></p>
+                    <p> Longitude: <input type="text" id="long1" size="25" name="long"></p>
                     <input type="button" id=button2 onclick="searchDailyWeather()" value="Search"><br>
                 </form>
             </section>
         </section>
-            <h3 id="hourly_temp"><br></h3>
-
-</section>
-
+        <h3 id="timezone"></h3>
+        <h3 id="todayDayTemp"></h3>
+        <h3 id="todayEveTemp"></h3>
+        <h3 id="todayMinTemp"></h3>
+        <h3 id="todayMaxTemp"></h3>
+        <h3 id="todayWindSpeed"></h3>
+        <h3 id="alerts"></h3>
+    </section>
+    <hr class="vertical-line"></hr>
+    <section id="airPollutionAPI">
+        <section>
+            <section id="airPollution" >
+                <form class="center">
+                    <p>Search for air pollution by latitude and longitude: </p>
+                    <p>Latitude: <input type="text" id="lat2" size="25" name="lat"></p>
+                    <p> Longitude: <input type="text" id="long2" size="25" name="long"></p>
+                    <input type="button" id=button3 onclick="searchAirPollution()" value="Search"><br>
+                </form>
+            </section>
+        </section>
+        <h3 id="aqi"></h3>
+        <h3 id="co"></h3>
+        <h3 id="no"></h3>
+        <h3 id="ozone"></h3>
+    </section>
+    <hr class="vertical-line"></hr>
+    <section id="weatherForecastByZipcodeAPI">
+        <section >
+            <section id="weatherForecast" >
+                <form class="center">
+                    <p>Search for weather forecast by zipcode: </p>
+                    <input type="text" id="zipcode" size="10" name="zipcode">
+                    <input type="button" id=button4 onclick="searchWeatherForecastByZipcode()" value="Search"><br>
+                </form>
+            </section>
+        </section>
+        <div id="forecastResults">
+            <div id="forecast1">
+                <h3 id="dateTime1"></h3>
+                <h3 id="temp1"></h3>
+                <h3 id="desc1"></h3>
+            </div>
+            <div id="forecast2">
+                <h3 id="dateTime2"></h3>
+                <h3 id="temp2"></h3>
+                <h3 id="desc2"></h3>
+            </div>
+        </div>
+    </section>
+    <hr class="vertical-line"></hr>
 </main>
 <footer id="footer">
     Copyright Jenny Hopkins 2021, CS 601 Web App Development
@@ -97,15 +143,9 @@
         function parseCurrentWeatherOutput(input) {
             const output = JSON.parse(input);
             console.log(output);
-            /* let stringOutput = "";
-            for(index in output) {
-                stringOutput += JSON.stringify(output[index]);
-            }
-            console.log(stringOutput); */
             let desc = output.weather[0].description; //weather info is in array
             console.log("weather" + desc);
-            document.getElementById("desc").innerHTML = "Description: " + desc;
-            console.log("desc" + desc);
+            document.getElementById("desc").innerHTML = "Weather description: " + desc;
             let temp = Math.round(convertKelvinToFahrenheit(output.main.temp));
             document.getElementById("temp").innerHTML = "Temperature: " + temp;
             let feels_like = Math.round(convertKelvinToFahrenheit(output.main.feels_like));
@@ -119,9 +159,8 @@
     }
 
     function searchDailyWeather() {
-        var lat = document.getElementById("lat").value;
-        var long = document.getElementById("long").value;
-
+        var lat1 = document.getElementById("lat1").value;
+        var long1 = document.getElementById("long1").value;
 
         var myHeaders = new Headers();
         myHeaders.append('Access-Control-Allow-Origin', '');
@@ -135,9 +174,8 @@
             referrerPolicy: 'no-referrer',
         };
 
-       // let url = "http://localhost:8010/proxy/data/2.5/onecall?" + city + ",us&appid="+config.apiKey;
-        let url = "http://localhost:8010/proxy/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,current&appid=" + config.apiKey;
-
+        // let url = "http://localhost:8010/proxy/data/2.5/onecall?lat=33.44&lon=-94.04&exclude=minutely,hourly,current&appid=" + config.apiKey;
+        let url = "http://localhost:8010/proxy/data/2.5/onecall?lat=" + lat1 + "&lon=" + long1 + "&exclude=minutely,hourly,current&appid=" + config.apiKey;
         fetch(url, requestOptions)
             .then(response => response.text())
             .then(result => parseDailyWeatherOutput(result))
@@ -146,21 +184,120 @@
         function parseDailyWeatherOutput(input) {
             const output = JSON.parse(input);
             console.log(output);
-            let hourly_temp = output.hourly[0].temp;
-            document.getElementById("hourly_temp").innerHTML = "Hourly Temp: " + hourly_temp;
-            console.log("hourly temp: " + hourly_temp);
-            /* let temp = Math.round(convertKelvinToFahrenheit(output.main.temp));
-            document.getElementById("temp").innerHTML = "Temperature: " + temp;
-            let feels_like = Math.round(convertKelvinToFahrenheit(output.main.feels_like));
-            document.getElementById("feels_like").innerHTML = "Feels like: " + feels_like;
-            console.log("feels_like: " + feels_like);
-            let temp_min = Math.round(convertKelvinToFahrenheit(output.main.temp_min));
-            document.getElementById("temp_min").innerHTML = "Min Temperature: " + temp_min;
-            let temp_max = Math.round(convertKelvinToFahrenheit(output.main.temp_max));
-            document.getElementById("temp_max").innerHTML = "Max Temperature: " + temp_max; */
+            let timezone = output.timezone;
+            document.getElementById("timezone").innerHTML = "Timezone: " + timezone;
+            let todayDayTemp = Math.round(convertKelvinToFahrenheit(output.daily[0].temp.day));
+            console.log("today day temp: " + todayDayTemp);
+            document.getElementById("todayDayTemp").innerHTML = "Today's day temperature: " + todayDayTemp;
+            let todayEveTemp = Math.round(convertKelvinToFahrenheit(output.daily[0].temp.eve));
+            console.log("today eve temp: " + todayEveTemp);
+            document.getElementById("todayEveTemp").innerHTML = "Today's evening temperature: " + todayEveTemp;
+            let todayMinTemp = Math.round(convertKelvinToFahrenheit(output.daily[0].temp.min));
+            console.log("today min temp: " + todayMinTemp);
+            document.getElementById("todayMinTemp").innerHTML = "Today's min temperature: " + todayMinTemp;
+            let todayMaxTemp = Math.round(convertKelvinToFahrenheit(output.daily[0].temp.max));
+            console.log("today max temp: " + todayMaxTemp);
+            document.getElementById("todayMaxTemp").innerHTML = "Today's max temperature: " + todayMaxTemp;
+            let todayWindSpeed = output.daily[0].wind_speed;
+            document.getElementById("todayWindSpeed").innerHTML = "Today's wind speed: " + todayWindSpeed + " m/sec";
+            let alerts = output.alerts;
+            if (alerts != undefined) {
+                document.getElementById("alerts").innerHTML = "Weather alerts: " + alerts;
+            }
         }
     }
 
+    function searchAirPollution() {
+        let lat2 = document.getElementById("lat2").value;
+        let long2 = document.getElementById("long2").value;
+
+        let myHeaders = new Headers();
+        myHeaders.append('Access-Control-Allow-Origin', '');
+        myHeaders.append("Accept", "/");
+
+        let requestOptions = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        };
+
+        //let url = "http://localhost:8010/proxy/data/2.5/air_pollution?lat=33.44&lon=-94.04&appid=" + config.apiKey;
+        let url = "http://localhost:8010/proxy/data/2.5/air_pollution?lat=" + lat2 + "&lon=" + long2 + "&appid=" + config.apiKey;
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => parseAirPollutionOutput(result))
+            .catch(error => console.log('error', error));
+
+        function parseAirPollutionOutput(input) {
+            const output = JSON.parse(input);
+            console.log(output);
+            let aqi = output.list[0].main.aqi;
+            document.getElementById("aqi").innerHTML = "Air quality index: " + aqi +
+                "<br>AQI possible values: 1, 2, 3, 4, 5. 1 = Good, 2 = Fair, 3 = Moderate, 4 = Poor, 5 = Very Poor.";
+            let co = output.list[0].components.co;
+            document.getElementById("co").innerHTML = "Carbon Monoxide: " + co + " micrograms/cubic meter";
+            let no = output.list[0].components.no;
+            document.getElementById("no").innerHTML = "Nitrogen monoxide: " + no + " micrograms/cubic meter";
+            let ozone = output.list[0].components.o3;
+            document.getElementById("ozone").innerHTML = "Ozone: " + ozone + " micrograms/cubic meter";
+        }
+    }
+
+    function searchWeatherForecastByZipcode() {
+        let zipcode = document.getElementById("zipcode").value;
+
+        let myHeaders = new Headers();
+        myHeaders.append('Access-Control-Allow-Origin', '');
+        myHeaders.append("Accept", "/");
+
+        let requestOptions = {
+            method: 'GET',
+            mode: 'cors',
+            cache: 'no-cache',
+            redirect: 'follow',
+            referrerPolicy: 'no-referrer',
+        };
+
+        let url = "http://localhost:8010/proxy/data/2.5/forecast?zip=" + zipcode + "&appid=" + config.apiKey;
+
+        fetch(url, requestOptions)
+            .then(response => response.text())
+            .then(result => parseWeatherForecastOutput(result))
+            .catch(error => console.log('error', error));
+
+        function parseWeatherForecastOutput(input) {
+            const output = JSON.parse(input);
+            console.log(output);
+            //let city4 = output.city.name;
+            //document.getElementById("city4").innerHTML = "City: " + city4;
+            let dateTime1 = new Date(output.list[0].dt * 1000).toLocaleString();
+            document.getElementById("dateTime1").innerHTML = "Forecast for: " + dateTime1;
+            let temp1 = Math.round(convertKelvinToFahrenheit(output.list[0].main.temp));
+            document.getElementById("temp1").innerHTML = "Temperature: " + temp1;
+            let desc1 = output.list[0].weather[0].description;
+            document.getElementById("desc1").innerHTML = "Weather description: " + desc1;
+
+            let dateTime2 = new Date(output.list[4].dt * 1000).toLocaleString();
+            document.getElementById("dateTime2").innerHTML = "Forecast for: " + dateTime2;
+            let temp2 = Math.round(convertKelvinToFahrenheit(output.list[4].main.temp));
+            document.getElementById("temp2").innerHTML = "Temperature: " + temp2;
+            let desc2 = output.list[4].weather[0].description;
+            document.getElementById("desc2").innerHTML = "Weather description: " + desc2;
+
+            //ITERATE FOR THE next few forecasts --- list[8], list[12] etc. --is there a way to put this into module?
+            //DISPLAY in blocks side to side, with diff background color?
+
+            /* let co = output.list[0].components.co;
+            document.getElementById("co").innerHTML = "Carbon Monoxide: " + co + " micrograms/cubic meter";
+            let no = output.list[0].components.no;
+            document.getElementById("no").innerHTML = "Nitrogen monoxide: " + no + " micrograms/cubic meter";
+            let ozone = output.list[0].components.o3;
+            document.getElementById("ozone").innerHTML = "Ozone: " + ozone + " micrograms/cubic meter"; */
+        }
+    }
 
 
 </script>
