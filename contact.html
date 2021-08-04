@@ -5,36 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Contact</title>
     <link rel="stylesheet" type="text/css" href="/css/main.css">
-    <link rel="stylesheet" type="text/css" href="/css/contact.css"
+    <link rel="stylesheet" type="text/css" href="/css/contact.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Crimson+Text&display=swap" rel="stylesheet">
-
-
-    <script>
-        function submitForm() {
-            //document.getElementById("contact").submit();
-            let nameString = document.getElementById("name").value;
-            let emailString = document.getElementById("email").value;
-            let subject1String = document.getElementById("subject1").value;
-            let messageString = document.getElementById("message").value;
-
-            console.log("Name: " + nameString);
-            console.log("Email: " + emailString);
-            console.log("Subject: " + subject1String);
-            console.log("Message: " + messageString);
-
-            let dateSubmitted = Date();
-            document.getElementById("submitted_message").innerHTML = "Thank you! Your form was submitted on " + dateSubmitted;
-            /* let form = document.getElementById("contact");
-            form.style.display = "none";
-            let processing = document.createElement("span");
-            processing.appendChild(document.createTextNode("Thanks for your submission!"));
-            form.parentNode.insertBefore(processing, form); */
-        }
-    </script>
-
-
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
 </head>
 <body>
 <main>
@@ -49,7 +24,7 @@
         <a class="active" href="contact.html">Contact Me</a>
     </div>
     <section class="container">
-        <form id="contact">
+        <form id="contact" action="#" method="POST">
             <div class="row">
                 <div class="col-25">
                     <label for="name">Name</label>
@@ -74,29 +49,28 @@
                     <input type="text" id="subject1" name="subject" placeholder="Subject of your message" required>
                 </div>
             </div>
-
             <div class="row">
                 <div class="col-25">
                     <label for="message">Message</label>
                 </div>
                 <div class="col-75">
-                    <textarea type="text" id="message" name="message" placeholder="Your message" style="height:200px"
+                    <textarea id="message" name="message" placeholder="Your message" style="height:200px" autocomplete="on" autofocus
                               required></textarea>
                 </div>
             </div>
 
             <div class="row">
-                <div class="col-25"
-                <label for="fileUpload">Upload a file (optional)</label>
-            </div>
-            <div class="col-75">
-                <input type="file" id="fileUpload" optional>
-            </div>
+                <div class="col-25">
+                    <label for="fileUpload">Upload a file (optional)</label>
+                </div>
+                <div class="col-75">
+                    <input type="file" id="fileUpload">
+                </div>
             </div>
             <br>
 
             <div class="row">
-                <input type="button" value="Submit" onclick="submitForm();">
+                <input id="submit" type="button" value="Submit" onclick="submitForm();">
             </div>
         </form>
 
@@ -108,5 +82,56 @@
 <footer id="footer">
     Copyright Jenny Hopkins 2021, CS 601 Web App Development
 </footer>
+<script>
+    function submitForm() {
+        //document.getElementById("contact").submit();
+        let nameString = document.getElementById("name").value;
+        let emailString = document.getElementById("email").value;
+        let subject1String = document.getElementById("subject1").value;
+        let messageString = document.getElementById("message").value;
+
+        console.log("Name: " + nameString);
+        console.log("Email: " + emailString);
+        console.log("Subject: " + subject1String);
+        console.log("Message: " + messageString);
+
+        let dateSubmitted = Date();
+        document.getElementById("submitted_message").innerHTML = "Thank you! Your form was submitted on " + dateSubmitted;
+        /* let form = document.getElementById("contact");
+        form.style.display = "none";
+        let processing = document.createElement("span");
+        processing.appendChild(document.createTextNode("Thanks for your submission!"));
+        form.parentNode.insertBefore(processing, form); */
+    }
+
+    /*//jQuery disable submit button after form is submitted
+    $(document).ready(function () {
+        $("#contact").submit(function (e) {
+            e.preventDefault();
+            $("#submit").attr("disabled", true);
+            console.log("after submit button clicked");
+            return true;
+        });
+    });*/
+
+    $(document).ready(function () {
+
+        $("#contact").submit(function (e) {
+
+            //stop submitting the form to see the disabled button effect
+            e.preventDefault();
+
+            //disable the submit button
+            $("#submit").attr("disabled", true);
+
+            //disable a normal button
+            $("#submit").attr("disabled", true);
+
+            return true;
+
+        });
+    });
+
+</script>
 </body>
 </html>

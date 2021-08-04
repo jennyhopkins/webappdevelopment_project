@@ -10,6 +10,10 @@ input[type=text], select, textarea {
     resize: vertical;
 }
 
+textarea {
+    font-family: "Arial";
+}
+
 input[type=text]:-webkit-autofill {
     border: 2px solid blue;
 }
@@ -80,8 +84,8 @@ input[type=file]::file-selector-button:hover {
     clear: both;
 }
 
-/* Responsive - when screen is less than 600px wide, make the two columns stack on top of each other instead of next to
-each other by setting width as 100%
+/* Responsive - if screen is less than 500px wide, the two columns will stack on top of each other instead of next
+to each other (by setting width as 100%)
 */
 @media screen and (max-width: 600px) {
     .col-25, .col-75, input[type=submit] {

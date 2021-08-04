@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 .placesnav {
     overflow: hidden;
     width: 100%;
@@ -18,6 +22,7 @@
     font-size: 17px;
 }
 
+/*pseudo-element selector to place content after something else */
 .placesnav::after {
     content: " <- Check out these other places!";
     color: lightblue;
@@ -47,17 +52,14 @@ div.gallery img {
     height: auto;
 }
 
+/*pseudo-element selector to place a star before each picture description */
 div.desc::before {
-    content: "\2729"; /* star before the picture description */
+    content: "\2729";
 }
 
 div.desc {
     padding: 15px;
     text-align: center;
-}
-
-* {
-    box-sizing: border-box;
 }
 
 .responsive {

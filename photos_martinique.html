@@ -1,3 +1,4 @@
+<!doctype html>
 <html lang="en">
 
 <head>
@@ -88,27 +89,18 @@
             curImg = slideshowImage.src.split('/').pop(),
             curIndex = imageArray.indexOf(curImg),
             nextIndex;
-        //console.log("Curr img name:", curImg);
-        //console.log("curIndex: ", curIndex);
 
         //left and right arrow keys:
         if (e.key) {
             switch (e.key) {
                 case "ArrowLeft":
-                    //If current index is 0 (the first element in the array), show the last image in the array,
-                    // at position 'imgs.length - 1'. Else, show image at the previous index:
                     nextIndex = curIndex === 0 ? (imageArray.length - 1) : curIndex - 1;
-                    //console.log("nextIndex", nextIndex);
                     break;
                 case "ArrowRight":
-                    // If curIndex + 1 is equal to the length of the images array, show the first element from the
-                    // array. Else, show the next image:
                     nextIndex = curIndex + 1 === imageArray.length ? 0 : curIndex + 1;
-                    //console.log("nextIndex", nextIndex);
                     break;
             }
         }
-        // set source of the image to the relevant URL + the string from array at nextIndex:
         //console.log('full path /content/resources/' + imageArray[nextIndex]);
         slideshowImage.src = '/content/resources/' + imageArray[nextIndex];
     }

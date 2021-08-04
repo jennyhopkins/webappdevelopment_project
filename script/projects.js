@@ -201,7 +201,6 @@ function convertJSONtoObject(jsonArray) {
 function printToHTML(predictionArray) {
     let curSection = document.getElementById("forecast3");
     for (i = 0; i <= 17; i += 4) {
-
         let predictionTimeElem = document.createElement("h3");
         predictionTimeElem.innerHTML = "Forecast for: " + predictionArray[i]._predictionTime;
         let predictionTempElem = document.createElement("h3");
