@@ -10,7 +10,7 @@
     color: white;
 }
 
-.placesnav a{
+.placesnav a {
     float: left;
     color: white;
     text-align: center;
@@ -33,13 +33,13 @@ div.gallery {
 
 div.gallery:hover {
     border: 1px solid #777;
-    position:relative;
-    top:-25px;
-    left:-35px;
-    width:550px;
-    height:auto;
-    display:block;
-    z-index:999;
+    position: relative;
+    top: -25px;
+    left: -35px;
+    width: 550px;
+    height: auto;
+    display: block;
+    z-index: 999;
 }
 
 div.gallery img {
@@ -48,7 +48,7 @@ div.gallery img {
 }
 
 div.desc::before {
-    content:"\2729";
+    content: "\2729"; /* star before the picture description */
 }
 
 div.desc {
@@ -77,13 +77,17 @@ div.desc {
     .responsive {
         width: 100%;
     }
+
     #slideshowInstructions, .container {
         display: none;
     }
 }
 
 #slideshow1 {
-    align-self: center;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 50%;
 }
 
 .clearfix:after {

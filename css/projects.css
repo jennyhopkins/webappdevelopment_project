@@ -1,15 +1,12 @@
-h3, form.center, p {
+h3, form.center, section.weather p {
     text-align: center;
-    align-content: center; /* none of the align- or justify- are working...how to get the form to be centered?? */
-    align-items: center;
-    justify-content: center;
 }
 
 #forecastResults {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content:space-evenly;
+    justify-content: space-evenly;
 }
 
 #forecast1 {
@@ -19,3 +16,74 @@ h3, form.center, p {
 #forecast2 {
     color: rebeccapurple;
 }
+
+/*Fun with CSS section (to add remaining selectors needed)*/
+
+/*Descendant combinators */
+section.funWithCSS h2 {
+    font-style: italic;
+}
+
+li ul {
+    list-style-type: circle;
+}
+
+section.funWithCSS div {
+    color: white;
+    background-color: darkgray;
+}
+
+/*Adjacent sibling selectors */
+h1 + p {
+    font-family: "American Typewriter";
+}
+
+p + h2 {
+    font-weight: bold;
+}
+
+h2 + p {
+    color: purple;
+}
+
+p + h5 {
+    font-size: larger;
+}
+
+h5 + h4 {
+    background-color: lightskyblue;
+    color: white;
+}
+
+h4 + p {
+    color: darkslateblue;
+}
+
+h5 + p {
+    background-color: lightyellow;
+}
+
+p + h4 {
+    text-transform: capitalize;
+}
+
+h4 + h4 {
+    color: darkgreen;
+}
+
+h4 + h5 {
+    background-color: lightgreen;
+}
+
+/* one more pseudo class selector -- this will apply to the 2nd element in the list*/
+li:nth-child(2) {
+    color: mediumvioletred;
+}
+
+
+
+
+
+
+
+

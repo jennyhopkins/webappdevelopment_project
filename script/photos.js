@@ -4,6 +4,7 @@
     elem.addEventListener("click", function () {
         elem.classList.toggle("enlarged");
     });
-});
+})
+;
 
 </script>
