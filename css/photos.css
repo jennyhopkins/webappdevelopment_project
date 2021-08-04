@@ -41,7 +41,7 @@ div.gallery:hover {
     position: relative;
     top: -25px;
     left: -35px;
-    width: 550px;
+    width: 500px;
     height: auto;
     display: block;
     z-index: 999;

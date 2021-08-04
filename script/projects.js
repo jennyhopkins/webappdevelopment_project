@@ -111,10 +111,10 @@ function parseDailyWeatherOutput(input) {
     document.getElementById("todayMaxTemp").innerHTML = "Today's max temperature: " + todayMaxTemp + " F";
     let todayWindSpeed = output.daily[0].wind_speed;
     document.getElementById("todayWindSpeed").innerHTML = "Today's wind speed: " + todayWindSpeed + " m/sec";
-    let alerts = output.alerts;
-    if (alerts != undefined) {
-        document.getElementById("alerts").innerHTML = "Weather alerts: " + alerts;
-    }
+    let sunrise = output.daily[0].sunrise;
+    document.getElementById("sunrise").innerHTML = "Sunrise: " + getDateTimeFromMilliseconds(sunrise);
+    let sunset = output.daily[0].sunset;
+    document.getElementById("sunset").innerHTML = "Sunset: " + getDateTimeFromMilliseconds(sunset);
 }
 
 function searchAirPollution() {
