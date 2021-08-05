@@ -5,7 +5,7 @@ body {
     height: 100%;
 }
 
-@media (max-width: 500px) {
+@media (max-width: 600px) {
     .container img {
         visibility: hidden;
     }
@@ -23,7 +23,7 @@ body {
 
 #jenny_pic {
     border: 2px solid black;
-    max-width: 25vw;
+    width: 25vw;
 }
 
 .topnav {

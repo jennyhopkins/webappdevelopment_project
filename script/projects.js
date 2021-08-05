@@ -6,7 +6,7 @@ class Forecast {
         this._predictionDescription = predictionDescription;
     }
 
-    //Getter
+    //Getters
     get predictionTime() {
         return this._predictionTime;
     }
